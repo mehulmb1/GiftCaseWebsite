@@ -310,7 +310,7 @@ const [userData, setUserData] = useState(null); // State to hold user data
 
 const[cartitem,setCartItems]=useState([])
 
-const addtocartfirebase = async (item, uid) => {
+const addtocartfirebase = async (item, orderDescription) => {
     if (!currentUser) {
         return toast.error("Signup first");
     }
@@ -325,7 +325,10 @@ const addtocartfirebase = async (item, uid) => {
 
     //     // const userCartRef = collection(userDocRef,currentUser.uid);
     //    }
-        await addDoc(userCartRef, item);
+
+
+        const itemWithDescription = { ...item, orderDescription };
+        await addDoc(userCartRef, itemWithDescription);
         setCartItems([...cartitem, item]);
         console.log("cart",cartitem)
         // await addDoc(userCartRef, { ...item, id: customDocId });

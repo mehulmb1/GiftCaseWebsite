@@ -14,6 +14,7 @@ function ProductInfo() {
 
     const [products, setProducts] = useState('')
     const [quantity, setQuantity] = useState(1);
+    const [orderDescription,setorderDescription]=useState('')
     const decreaseQuantity = () => {
         if (quantity > 0) {
           setQuantity(quantity - 1);
@@ -51,6 +52,10 @@ function ProductInfo() {
 
     }, [])
 
+
+    const handleDescriptionChange = (event) => {
+        setorderDescription(event.target.value);
+    };
 
 
     const dispatch = useDispatch()
@@ -208,7 +213,15 @@ function ProductInfo() {
                                 </div>
                                 </span>
                             </h1>
-
+                            {/* add discription to order */}
+                            <div className="flex">
+                                <h1>Add Any specification you need regarding this Product</h1>
+                                <textarea style={{border:"solid", width:"50vh"}}
+                                onChange={handleDescriptionChange}
+                                ></textarea>
+                             
+                            </div>
+                            <br></br>
                             <div className="flex">
                                 <span className="title-font font-medium text-2xl text-gray-900">
                                 ₹{products.price}
@@ -217,7 +230,7 @@ function ProductInfo() {
                                     getProductData()
                                     if (products.quantity>0) {
                                         products.quantitynum=quantity;
-                                        addtocartfirebase(products);
+                                        addtocartfirebase(products,orderDescription);
                                     } else {
                                         toast.error("Out Of Stock")
                                     }
@@ -225,7 +238,10 @@ function ProductInfo() {
                                     Add To Cart
                                 </button>
                             </div>
+                            
+
                         </div>
+                    
                     </div>}
                 </div>
             </section>
