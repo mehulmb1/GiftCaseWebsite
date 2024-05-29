@@ -205,7 +205,6 @@ const clearCart = async()=>{
     // quantity reduce after order=>
 
         querySnapshot.forEach(async(docc) => {
-          const productId = docc.data().id;
           const productred = collection(fireDB, "products");
           const productSnapshot =  await getDocs(productred);
           productSnapshot.forEach(async (productDoc) => {
@@ -214,7 +213,7 @@ const clearCart = async()=>{
             if (productDoc.id === productId) {
               await updateDoc(productRef, {
                 quantity: increment(-(docc.data().quantitynum))
-              });
+              })
             }
           });
         });
@@ -235,7 +234,7 @@ const clearCart = async()=>{
         <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0 ">
           <div className="rounded-lg md:w-2/3 ">
             {cartItems.map((item, index) => {
-              const { title, price, description, imageUrl,quantitynum } = item;
+              const { title, price, description, imageUrl,quantitynum,orderDescription } = item;
               return (
                 <div className="justify-between mb-6 rounded-lg border  drop-shadow-xl bg-white p-6  sm:flex  sm:justify-start" style={{ backgroundColor: mode === 'dark' ? 'rgb(32 33 34)' : '', color: mode === 'dark' ? 'white' : '', }}>
                   <img src={imageUrl} alt="product-image" className="w-full rounded-lg sm:w-40" />
@@ -257,6 +256,9 @@ const clearCart = async()=>{
                                 </div>
                                 </span>
                             </h1>
+                      <h1> Order Description : 
+                      {orderDescription}
+                      </h1>
                       <p className="mt-1 text-xs font-semibold text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{price}</p>
                     </div>
                     <div onClick={() => deleteCart(item,currentUser.uid)} className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import myContext from '../../context/data/myContext'
+import React, { useContext, useEffect, useState } from 'react'
+import myContext from '../../context/data/myContext';
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
 import { toast } from 'react-toastify'
@@ -8,16 +8,28 @@ function ProductCard() {
     const context = useContext(myContext)
     const { mode, product ,searchkey, setSearchkey,filterType,setFilterType,
         filterPrice,setFilterPrice,uid,addtocartfirebase} = context
+        const [products, setProducts] = useState('')
 
     const dispatch = useDispatch()
     const cartItems = useSelector((state)=> state.cart);
     console.log(cartItems)
 
-    const addCart = (product)=> {
-        dispatch(addToCart(product));
-        toast.success('added to cart');
-    }
+   
 
+    const getProductData = async () => {
+        setLoading(true)
+        try {
+            const productTemp = await getDoc(doc(fireDB, "products", params.id))
+            // {console.log("in method",productTemp)}
+
+            const temp = { ...productTemp.data(), id: productTemp.id };
+            setProducts(temp);
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
+    }
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems])
@@ -48,9 +60,16 @@ function ProductCard() {
                                         <p className="leading-relaxed mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{price}</p>
                                         <div className=" flex justify-center">
                                             <button type="button" 
-                                            onClick={()=> {
-                                                // addCart(item)
-                                                addtocartfirebase(item)}}
+                                             onClick={() => {
+                                                getProductData()
+                                                {console.log(products,"hey")}
+                                                if (products.quantitynum>0) {
+                                                    products.quantitynum=quantity;
+                                                    addtocartfirebase(products,orderDescription);
+                                                } else {
+                                                    toast.error("Out Of Stock")
+                                                }
+                                                }}
                                             className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
 
                                         </div>

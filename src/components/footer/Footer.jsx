@@ -57,19 +57,19 @@ function Footer() {
 
                 <ul className="mt-6 space-y-4">
                     <li>
-                        <Link to={'/UserProfile'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">All Products</Link>
+                        <Link to={'/allproducts'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">All Products</Link>
                     </li>
                     <li>
-                        <Link to={'/UserProfile'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Personalized Request</Link>
+                        <Link to={'/Reqform'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Personalized Request</Link>
                     </li>                    
                     <li>
-                        <Link to={'/UserProfile'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Orders</Link>
+                        <Link to={'/order'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Orders</Link>
                     </li>
                     <li>
                         <Link to={'/UserProfile'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Profile</Link>
                     </li>
                     <li>
-                        <Link to={'/UserProfile'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Cart</Link>
+                        <Link to={'/cart'} href="#" title="" className="flex text-base text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">Cart</Link>
                     </li>
                 </ul>
             </div>
